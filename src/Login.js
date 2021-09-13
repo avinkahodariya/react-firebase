@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Input } from "@material-ui/core";
 import EmailIcon from "@material-ui/icons/Email";
 import TextField from "@material-ui/core/TextField";
@@ -13,11 +14,31 @@ import Button from "@material-ui/core/Button";
 import { Container } from "@material-ui/core";
 import { Redirect } from "react-router";
 import { useHistory } from "react-router";
+// import { login } from "./Auth";
+import { login } from "./config";
+
 const Login = () => {
   const history = useHistory();
-  const Redirect = () => {
+  const [Email, setEmail] = useState(null);
+  const [Password, setPassword] = useState(null);
+  // const handleSubmit = () => {
+  //   var a = login({ Email, Password });
+  //   console.log(a);
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let a = await login(Email, Password);
+
+    console.log(a);
+
+    if (a !== undefined) {
+      history.push("/main");
+    }
+  };
+
+  const gotosignin = () => {
     console.log("rege");
-    <Redirect to="/signin/" />;
     history.push("/sigin");
   };
 
@@ -39,6 +60,11 @@ const Login = () => {
             type="email"
             label="Email"
             variant="outlined"
+            className={styles.MuiTextField}
+            onChange={(e) => {
+              console.log("df", e.target.value);
+              setEmail(e.target.value);
+            }}
           />
           <LockIcon />{" "}
           <TextField
@@ -48,15 +74,25 @@ const Login = () => {
             type="password"
             autoComplete="current-password"
             variant="outlined"
+            className={styles.MuiTextField}
+            onChange={(e) => {
+              console.log("df", e.target.value);
+              setPassword(e.target.value);
+            }}
           />
-          <Button variant="contained" color="primary" className={styles.button}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.button}
+            onClick={handleSubmit}
+          >
             Login{" "}
           </Button>
           <Button
             variant="contained"
             color="primary"
             className={styles.button}
-            onClick={Redirect}
+            onClick={gotosignin}
           >
             signin{" "}
           </Button>

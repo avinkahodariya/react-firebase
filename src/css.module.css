@@ -22,3 +22,11 @@
   width: 20%;
   margin: 0 auto;
 }
+
+.MuiTextField {
+  width: 50%;
+}
+.redborder {
+  border: solid 1em rgb(212, 76, 76);
+  border-color: red;
+}

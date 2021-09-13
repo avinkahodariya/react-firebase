@@ -2,6 +2,7 @@ import React from "react";
 import Registration from "./Registration";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./Login";
+import Main from "./Main";
 const App = () => {
   return (
     <>
@@ -12,6 +13,9 @@ const App = () => {
           </Route>
           <Route path="/sigin" exact>
             <Registration />
+          </Route>{" "}
+          <Route path="/main" exact>
+            <Main />
           </Route>
         </Switch>
       </Router>
