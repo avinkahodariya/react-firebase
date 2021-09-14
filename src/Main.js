@@ -18,6 +18,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import FlightIcon from "@material-ui/icons/Flight";
 import InfoIcon from "@material-ui/icons/Info";
+import { useHistory } from "react-router";
+import { connect } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -43,22 +45,27 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-const Main = () => {
+const Main = (props) => {
+  const history = useHistory();
   const classes = useStyles();
 
-  const [b, setb] = useState(null);
-  console.log("b is ", b);
+  const [User, setUser] = useState(null);
+  // console.log("b is ", b);
   let c;
-  useEffect(async (c) => {
-    c = await db
-      .collection("users")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          //   console.log(doc.data());
-          setb(doc.data());
-        });
-      });
+  // useEffect(async (c) => {
+  //   c = await db
+  //     .collection("users")
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       querySnapshot.forEach((doc) => {
+  //         //   console.log(doc.data());
+  //         setb(doc.data());
+  //       });
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    setUser(props.User_data);
   }, []);
 
   return (
@@ -83,8 +90,14 @@ const Main = () => {
           <PermIdentityIcon src="/broken-image.jpg" />
 
           <List>
-            {["User", "Flight Book", "About us"].map((text, index) => (
-              <ListItem button key={text}>
+            {["User", "Flight-booking", "About us"].map((text, index) => (
+              <ListItem
+                button
+                key={text}
+                onClick={() => {
+                  history.push(`/main/${text}`);
+                }}
+              >
                 <ListItemIcon>
                   {text == "User" ? (
                     <>
@@ -114,4 +127,11 @@ const Main = () => {
   );
 };
 
-export default Main;
+const mapstateToprops = (state) => {
+  console.log("efggfasa", state);
+  return {
+    User: state.User_data,
+  };
+};
+
+export default connect(mapstateToprops, null)(Main);

@@ -16,8 +16,9 @@ import { Redirect } from "react-router";
 import { useHistory } from "react-router";
 // import { login } from "./Auth";
 import { login } from "./config";
-
-const Login = () => {
+import { connect } from "react-redux";
+import { db } from "./config";
+const Login = (props) => {
   const history = useHistory();
   const [Email, setEmail] = useState(null);
   const [Password, setPassword] = useState(null);
@@ -30,15 +31,26 @@ const Login = () => {
     e.preventDefault();
     let a = await login(Email, Password);
 
-    console.log(a);
+    // console.log(a);
 
     if (a !== undefined) {
+      await db
+        .collection("users")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // console.log(doc.data());
+            props.User_data(doc.data());
+            // console.log("asdfgh");
+          });
+        });
+
       history.push("/main");
     }
   };
 
   const gotosignin = () => {
-    console.log("rege");
+    // console.log("rege");
     history.push("/sigin");
   };
 
@@ -102,4 +114,15 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapDispatchToprops = (dispatch) => {
+  return {
+    User_data: (payload) => {
+      dispatch({
+        type: "User_data",
+        payload,
+      });
+    },
+  };
+};
+
+export default connect(null, mapDispatchToprops)(Login);

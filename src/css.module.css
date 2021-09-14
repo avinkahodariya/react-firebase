@@ -2,8 +2,7 @@
   border: black;
   fill: currentColor;
   width: 2em;
-  /* height: 5em; */
-  /* display: inline-block; */
+  height: 100%; /* display: inline-block; */
   font-size: 1.5rem;
   transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   flex-shrink: 0;
@@ -29,4 +28,12 @@
 .redborder {
   border: solid 1em rgb(212, 76, 76);
   border-color: red;
+}
+.User_info {
+  border: solid grey;
+  border-radius: 3em;
+  width: 30em;
+  height: 30em;
+  margin: auto auto;
+  padding: 10px;
 }
