@@ -37,3 +37,14 @@
   margin: auto auto;
   padding: 10px;
 }
+.Search {
+  border: solid black;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  padding: 10px;
+  gap: 10px;
+  justify-content: center;
+  border-radius: 2em;
+  width: 60%;
+}
